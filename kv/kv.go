@@ -14,13 +14,13 @@ type KV[T comparable, V any] interface {
 
 type data[V any] struct {
 	value V
-	mu    sync.Mutex
+	mu    sync.RWMutex
 }
 
 func newData[V any](value V) *data[V] {
 	return &data[V]{
 		value: value,
-		mu:    sync.Mutex{},
+		mu:    sync.RWMutex{},
 	}
 }
 
@@ -63,9 +63,9 @@ func (s *Storage[T, V]) Get(key T) (V, error) {
 	}
 
 	// Иначе получаем race condition
-	value.mu.Lock()
+	value.mu.RLock()
 	v := value.value
-	value.mu.Unlock()
+	value.mu.RUnlock()
 
 	return v, nil
 }
