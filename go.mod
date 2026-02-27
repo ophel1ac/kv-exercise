@@ -1,5 +1,5 @@
 module github.com/ophel1ac/kv-exercise
 
-go 1.25.0
+go 1.26.0
 
-require golang.org/x/time v0.14.0 // indirect
+require golang.org/x/time v0.14.0
